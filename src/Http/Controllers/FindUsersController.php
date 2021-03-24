@@ -32,8 +32,10 @@ class FindUsersController
 
         // FIXME: Se debe tener cuidado en la implementación
         // para que siga las notas del documento de requisitos
-        $localUsers = $this->localUsersRepository->findByLogin($login, $limit);
-        $githubUsers = $this->gitHubUsersRepository->findByLogin($login, $limit);
+        $resto = ($limit % 2);
+        $div = ($limit / 2);
+        $localUsers = $this->localUsersRepository->findByLogin($login, ($resto)? $div+1:$div);
+        $githubUsers = ($limit!=1)? $this->gitHubUsersRepository->findByLogin($login, $div):null;
 
         $users = $localUsers->merge($githubUsers)->map(function (User $user) {
             return [

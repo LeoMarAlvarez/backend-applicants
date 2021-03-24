@@ -29,7 +29,7 @@ $container->set(GitHubUsersRepository::class, function () {
 // application
 AppFactory::setContainer($container);
 $app = AppFactory::create();
-$app->add(new WhoopsMiddleware(['enable' => env('API_ENV') === 'local']));
+// $app->add(new WhoopsMiddleware(['enable' => env('API_ENV') === 'local']));
 
 // routes
 $app->get('/', VersionController::class);
